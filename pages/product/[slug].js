@@ -12,7 +12,7 @@ const Slug = ({ clearCart, addtoCart, buyNow, product, variants }) => {
   const [pin, setPin] = useState();
   const [service, setService] = useState();
   const checkServiceAvailability = async () => {
-    let pins = await fetch("http://localhost:3000/api/pincode");
+    let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
     let pinJson = await pins.json();
     console.log(pinJson, pin);
     if (pinJson.includes(parseInt(pin))) {
@@ -34,7 +34,7 @@ const Slug = ({ clearCart, addtoCart, buyNow, product, variants }) => {
 
   const refreshVariant = (newcolor, newsize) => {
     console.log('v is', newcolor, newsize);
-    let url = `http://localhost:3000/product/${variants[newcolor][newsize]["slug"]}`;
+    let url = `${process.env.NEXT_PUBLIC_HOST}/product/${variants[newcolor][newsize]["slug"]}`;
     window.location = url;
   };
 

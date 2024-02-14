@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 const Forgot = () => {
+  const router=useRouter()
+  useEffect(()=>{
+    if(localStorage.getItem('token')){
+      router.push('/')
+    }
+  },[])
   return (
 <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
   <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -11,7 +18,7 @@ const Forgot = () => {
   <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <form className="space-y-6" action="#" method="POST">
       <div>
-        <label for="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
         <div className="mt-2">
           <input placeholder='Enter Your Email Address to send an OTP' id="email" name="email" type="email" autocomplete="email" required className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6"/>
         </div>

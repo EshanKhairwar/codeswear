@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,7 +8,15 @@ const Login = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
   const router=useRouter()
+
+  useEffect(()=>{
+    if(localStorage.getItem('token')){
+      router.push('/')
+    }
+  },[])
+
   const handleChange = (e) => {
 
     if (e.target.name === 'email') setEmail(e.target.value)
@@ -19,7 +27,7 @@ const Login = () => {
     e.preventDefault()
     let formData = { email, password }
 
-    let res = await fetch('http://localhost:3000/api/login', {
+    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -49,8 +57,8 @@ localStorage.setItem('token',response.token)
       });
 
       setTimeout(()=>{
-        router.push('http://localhost:3000')
-      },2000)
+        router.push(`${process.env.NEXT_PUBLIC_HOST}`)
+      },1000)
 
   }
   else {
